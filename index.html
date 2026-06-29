@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#100f0c}
+  ::selection{background:rgba(200,169,106,.3)}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:#100f0c}
+  ::-webkit-scrollbar-thumb{background:#332e25;border-radius:5px}
+  @keyframes fr-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#14130f"/><g fill="#c8a96a"><rect x="34" y="30" width="7" height="40"/><rect x="34" y="30" width="20" height="7"/><rect x="47" y="43" width="7" height="27"/></g><g fill="#c9c3b8"><rect x="26" y="44" width="5" height="26"/></g></svg></template>
+<div data-screen-label="Freedom経営ポータル" style="background:#14130f;min-height:100vh;font-family:'Noto Sans JP',sans-serif;color:#ece7dd;padding-bottom:64px;background-image:radial-gradient(1200px 600px at 80% -10%, rgba(200,169,106,.07), transparent 60%);">
+
+  <!-- ============ TOP BAR ============ -->
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 40px;background:rgba(16,15,12,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,169,106,.16);">
+    <div style="display:flex;align-items:center;gap:18px;">
+      <img src="assets/freedom-logo-light.png" alt="FREEDOM GROUP" style="height:34px;width:auto;display:block;"/>
+      <div style="width:1px;height:30px;background:rgba(200,169,106,.25);"></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;letter-spacing:.34em;color:#c8a96a;text-transform:uppercase;">Corporate Portal</div>
+    </div>
+    <nav style="display:flex;align-items:center;gap:6px;">
+      <a href="#dashboard" style="padding:8px 14px;font-size:12.5px;letter-spacing:.06em;color:#cfc8bb;text-decoration:none;border-radius:6px;">ダッシュボード</a>
+      <a href="#minpaku" style="padding:8px 14px;font-size:12.5px;letter-spacing:.06em;color:#cfc8bb;text-decoration:none;border-radius:6px;">民泊事業</a>
+      <a href="#food" style="padding:8px 14px;font-size:12.5px;letter-spacing:.06em;color:#cfc8bb;text-decoration:none;border-radius:6px;">飲食事業</a>
+      <a href="#ops" style="padding:8px 14px;font-size:12.5px;letter-spacing:.06em;color:#cfc8bb;text-decoration:none;border-radius:6px;">経営オペレーション</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section style="padding:54px 40px 30px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+    <div style="animation:fr-rise .6s ease both;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:.4em;color:#8c7a52;text-transform:uppercase;margin-bottom:14px;">Freedom Group &middot; Monthly Report</div>
+      <h1 style="font-family:'Shippori Mincho B1',serif;font-weight:600;font-size:46px;line-height:1.15;letter-spacing:.02em;color:#f4efe5;">経営ポータル</h1>
+      <p style="margin-top:14px;max-width:560px;font-size:13.5px;line-height:1.9;color:#9a9387;">民泊事業と飲食事業の収益を一元管理し、月次でKPIを可視化する経営の司令塔。10年で年間純利益1億円という到達点から逆算した意思決定を支えます。</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;animation:fr-rise .6s ease .08s both;">
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(127,174,138,.35);border-radius:999px;font-size:11.5px;color:#9bbfa6;letter-spacing:.04em;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#7fae8a;box-shadow:0 0 8px #7fae8a;"></span>Google Sheets 連携
+      </div>
+      <div style="text-align:right;padding:10px 20px;border:1px solid rgba(200,169,106,.28);border-radius:10px;background:rgba(200,169,106,.05);">
+        <div style="font-size:10.5px;letter-spacing:.18em;color:#8c7a52;text-transform:uppercase;">Report Month</div>
+        <div style="font-family:'Shippori Mincho B1',serif;font-size:22px;color:#e8dcc0;margin-top:2px;">{{ reportMonth }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DASHBOARD ============ -->
+  <section id="dashboard" data-screen-label="経営ダッシュボード" style="padding:14px 40px 0;">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px;border-bottom:1px solid rgba(200,169,106,.14);padding-bottom:14px;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#c8a96a;">01</span>
+      <h2 style="font-family:'Shippori Mincho B1',serif;font-weight:600;font-size:24px;color:#f4efe5;">経営ダッシュボード</h2>
+      <span style="font-size:11.5px;color:#6f685c;letter-spacing:.1em;">全社サマリー &middot; 月次</span>
+    </div>
+
+    <!-- KPI row -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+      <div style="background:linear-gradient(160deg,#221f18,#1a1814);border:1px solid rgba(200,169,106,.18);border-radius:14px;padding:22px;">
+        <div style="font-size:11px;letter-spacing:.14em;color:#8c8576;text-transform:uppercase;">全社売上 / 月</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:14px;"><span style="font-size:15px;color:#c8a96a;">¥</span><span style="font-family:'Noto Sans JP';font-weight:300;font-size:38px;letter-spacing:-.01em;color:#f4efe5;">9,900,000</span></div>
+        <div style="margin-top:10px;font-size:12px;color:#7fae8a;">▲ 3.2% <span style="color:#6f685c;">前月比</span></div>
+      </div>
+      <div style="background:linear-gradient(160deg,#221f18,#1a1814);border:1px solid rgba(200,169,106,.18);border-radius:14px;padding:22px;">
+        <div style="font-size:11px;letter-spacing:.14em;color:#8c8576;text-transform:uppercase;">営業利益 / 月</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:14px;"><span style="font-size:15px;color:#c8a96a;">¥</span><span style="font-family:'Noto Sans JP';font-weight:300;font-size:38px;letter-spacing:-.01em;color:#f4efe5;">2,520,000</span></div>
+        <div style="margin-top:10px;font-size:12px;color:#7fae8a;">▲ 4.8% <span style="color:#6f685c;">前月比</span></div>
+      </div>
+      <div style="background:linear-gradient(160deg,#221f18,#1a1814);border:1px solid rgba(200,169,106,.18);border-radius:14px;padding:22px;">
+        <div style="font-size:11px;letter-spacing:.14em;color:#8c8576;text-transform:uppercase;">営業利益率</div>
+        <div style="display:flex;align-items:baseline;gap:2px;margin-top:14px;"><span style="font-family:'Noto Sans JP';font-weight:300;font-size:38px;color:#f4efe5;">25.5</span><span style="font-size:18px;color:#c8a96a;">%</span></div>
+        <div style="margin-top:10px;font-size:12px;color:#9a9387;">業界水準 +6pt</div>
+      </div>
+      <div style="background:linear-gradient(160deg,#2a2417,#1d1a12);border:1px solid rgba(200,169,106,.32);border-radius:14px;padding:22px;">
+        <div style="font-size:11px;letter-spacing:.14em;color:#c8a96a;text-transform:uppercase;">年換算売上</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-top:14px;"><span style="font-size:15px;color:#c8a96a;">¥</span><span style="font-family:'Noto Sans JP';font-weight:300;font-size:38px;color:#f4efe5;">118.8</span><span style="font-size:16px;color:#c8a96a;">M</span></div>
+        <div style="margin-top:10px;font-size:12px;color:#9a9387;">ランレート換算</div>
+      </div>
+    </div>
+
+    <!-- second row: goal + split + trend -->
+    <div style="display:grid;grid-template-columns:1.05fr 1fr 1.35fr;gap:18px;margin-top:18px;">
+
+      <!-- Goal -->
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:24px;display:flex;flex-direction:column;">
+        <div style="font-size:11px;letter-spacing:.14em;color:#8c8576;text-transform:uppercase;">10年ビジョン進捗</div>
+        <div style="font-family:'Shippori Mincho B1',serif;font-size:17px;color:#e8dcc0;margin-top:6px;line-height:1.5;">年間純利益 {{ targetLabel }} へ</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:18px;">
+          <span style="font-family:'Noto Sans JP';font-weight:300;font-size:40px;color:#c8a96a;">{{ progressPct }}</span><span style="font-size:18px;color:#c8a96a;">%</span>
+        </div>
+        <div style="margin-top:14px;height:8px;border-radius:999px;background:#2a261d;overflow:hidden;">
+          <div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#9a7e3f,#d8bd84);width:{{ progressBarWidth }};transition:width .8s ease;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11.5px;color:#7d766a;">
+          <span>現状 {{ currentLabel }}</span><span>残 {{ gapLabel }}</span>
+        </div>
+        <div style="margin-top:auto;padding-top:16px;font-size:11px;color:#6f685c;line-height:1.7;">現年換算純利益ベース。物件拡大・FL改善・新規事業で逆算管理。</div>
+      </div>
+
+      <!-- Business split -->
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:24px;">
+        <div style="font-size:11px;letter-spacing:.14em;color:#8c8576;text-transform:uppercase;">事業別売上構成</div>
+        <div style="margin-top:22px;display:flex;flex-direction:column;gap:20px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+              <span style="font-size:13px;color:#e8dcc0;">民泊事業</span>
+              <span style="font-size:13px;color:#cfc8bb;">¥6,900,000 <span style="color:#8c7a52;font-size:11.5px;">69.7%</span></span>
+            </div>
+            <div style="height:10px;border-radius:999px;background:#2a261d;overflow:hidden;"><div style="height:100%;width:69.7%;border-radius:999px;background:linear-gradient(90deg,#b3934f,#d8bd84);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+              <span style="font-size:13px;color:#e8dcc0;">飲食事業（BAR）</span>
+              <span style="font-size:13px;color:#cfc8bb;">¥3,000,000 <span style="color:#8c7a52;font-size:11.5px;">30.3%</span></span>
+            </div>
+            <div style="height:10px;border-radius:999px;background:#2a261d;overflow:hidden;"><div style="height:100%;width:30.3%;border-radius:999px;background:linear-gradient(90deg,#5f6f78,#8aa0aa);"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:26px;padding-top:18px;border-top:1px solid rgba(200,169,106,.1);display:flex;justify-content:space-between;">
+          <div><div style="font-size:10.5px;color:#7d766a;letter-spacing:.1em;">合計</div><div style="font-size:18px;color:#f4efe5;margin-top:4px;">¥9.9M</div></div>
+          <div style="text-align:right;"><div style="font-size:10.5px;color:#7d766a;letter-spacing:.1em;">事業数</div><div style="font-size:18px;color:#f4efe5;margin-top:4px;">2 事業</div></div>
+        </div>
+      </div>
+
+      <!-- Trend chart -->
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <div style="font-size:11px;letter-spacing:.14em;color:#8c8576;text-transform:uppercase;">月次売上推移</div>
+          <div style="font-size:11px;color:#7d766a;">単位：百万円</div>
+        </div>
+        <div style="margin-top:26px;height:150px;display:flex;align-items:flex-end;gap:7px;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:62%;border-radius:4px 4px 0 0;background:#3a342690;"></div><span style="font-size:9px;color:#6f685c;">7</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:68%;border-radius:4px 4px 0 0;background:#3a342690;"></div><span style="font-size:9px;color:#6f685c;">8</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:71%;border-radius:4px 4px 0 0;background:#3a342690;"></div><span style="font-size:9px;color:#6f685c;">9</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:76%;border-radius:4px 4px 0 0;background:#4a4230;"></div><span style="font-size:9px;color:#6f685c;">10</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:74%;border-radius:4px 4px 0 0;background:#4a4230;"></div><span style="font-size:9px;color:#6f685c;">11</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:89%;border-radius:4px 4px 0 0;background:#7a6534;"></div><span style="font-size:9px;color:#6f685c;">12</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:82%;border-radius:4px 4px 0 0;background:#4a4230;"></div><span style="font-size:9px;color:#6f685c;">1</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:80%;border-radius:4px 4px 0 0;background:#4a4230;"></div><span style="font-size:9px;color:#6f685c;">2</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:91%;border-radius:4px 4px 0 0;background:#7a6534;"></div><span style="font-size:9px;color:#6f685c;">3</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:94%;border-radius:4px 4px 0 0;background:#9a7e3f;"></div><span style="font-size:9px;color:#6f685c;">4</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:96%;border-radius:4px 4px 0 0;background:#b3934f;"></div><span style="font-size:9px;color:#6f685c;">5</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;"><div style="width:100%;height:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#d8bd84,#b3934f);box-shadow:0 0 14px rgba(216,189,132,.3);"></div><span style="font-size:9px;color:#c8a96a;">6</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MINPAKU ============ -->
+  <section id="minpaku" data-screen-label="民泊事業ハブ" style="padding:48px 40px 0;">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px;border-bottom:1px solid rgba(200,169,106,.14);padding-bottom:14px;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#c8a96a;">02</span>
+      <h2 style="font-family:'Shippori Mincho B1',serif;font-weight:600;font-size:24px;color:#f4efe5;">民泊事業</h2>
+      <span style="font-size:11.5px;color:#6f685c;letter-spacing:.1em;">Vacation Rental &middot; 9リスティング / 13室</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:18px;">
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:20px;"><div style="font-size:11px;letter-spacing:.12em;color:#8c8576;text-transform:uppercase;">平均稼働率</div><div style="margin-top:12px;font-weight:300;font-size:32px;color:#f4efe5;">88<span style="font-size:16px;color:#c8a96a;">%</span></div></div>
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:20px;"><div style="font-size:11px;letter-spacing:.12em;color:#8c8576;text-transform:uppercase;">平均ADR</div><div style="margin-top:12px;font-weight:300;font-size:32px;color:#f4efe5;"><span style="font-size:15px;color:#c8a96a;">¥</span>20,000</div></div>
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:20px;"><div style="font-size:11px;letter-spacing:.12em;color:#8c8576;text-transform:uppercase;">RevPAR</div><div style="margin-top:12px;font-weight:300;font-size:32px;color:#f4efe5;"><span style="font-size:15px;color:#c8a96a;">¥</span>17,600</div></div>
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:20px;"><div style="font-size:11px;letter-spacing:.12em;color:#8c8576;text-transform:uppercase;">月売上</div><div style="margin-top:12px;font-weight:300;font-size:32px;color:#f4efe5;"><span style="font-size:15px;color:#c8a96a;">¥</span>6.9<span style="font-size:16px;color:#c8a96a;">M</span></div></div>
+    </div>
+
+    <!-- property table -->
+    <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:1.4fr 1fr .9fr 1.4fr 1fr 1.1fr;gap:12px;padding:14px 22px;border-bottom:1px solid rgba(200,169,106,.12);font-size:10.5px;letter-spacing:.1em;color:#8c8576;text-transform:uppercase;">
+        <span>物件</span><span>形態</span><span>室数</span><span>稼働率</span><span>ADR</span><span style="text-align:right;">月売上(概算)</span>
+      </div>
+      <sc-for list="{{ properties }}" as="p" hint-placeholder-count="9">
+        <div style="display:grid;grid-template-columns:1.4fr 1fr .9fr 1.4fr 1fr 1.1fr;gap:12px;padding:15px 22px;border-bottom:1px solid rgba(200,169,106,.06);align-items:center;font-size:13px;">
+          <span style="color:#ece7dd;font-weight:500;">{{ p.name }}</span>
+          <span style="color:#9a9387;font-size:12px;">{{ p.type }}</span>
+          <span style="color:#cfc8bb;">{{ p.rooms }}</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="flex:1;height:6px;border-radius:999px;background:#2a261d;overflow:hidden;"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#9a7e3f,#d8bd84);width:{{ p.occ }};"></div></div>
+            <span style="color:#cfc8bb;font-size:12px;min-width:34px;">{{ p.occLabel }}</span>
+          </div>
+          <span style="color:#cfc8bb;">{{ p.adr }}</span>
+          <span style="text-align:right;color:#e8dcc0;font-weight:500;">{{ p.rev }}</span>
+        </div>
+      </sc-for>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr .9fr 1.4fr 1fr 1.1fr;gap:12px;padding:16px 22px;background:rgba(200,169,106,.05);font-size:13px;align-items:center;">
+        <span style="color:#c8a96a;letter-spacing:.06em;font-family:'Shippori Mincho B1',serif;">合計</span>
+        <span></span><span style="color:#cfc8bb;">13室</span><span style="color:#cfc8bb;">平均 88%</span><span style="color:#cfc8bb;">¥20,000</span>
+        <span style="text-align:right;color:#f4efe5;font-weight:500;">¥6,900,000</span>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:#6f685c;line-height:1.7;">※ 月売上＝ADR×30泊×稼働率×室数の概算。実績はGoogleスプレッドシートより月次反映。賃貸物件は家賃・清掃費控除前の売上ベース。</div>
+  </section>
+
+  <!-- ============ FOOD ============ -->
+  <section id="food" data-screen-label="飲食事業ハブ" style="padding:48px 40px 0;">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px;border-bottom:1px solid rgba(200,169,106,.14);padding-bottom:14px;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#c8a96a;">03</span>
+      <h2 style="font-family:'Shippori Mincho B1',serif;font-weight:600;font-size:24px;color:#f4efe5;">飲食事業</h2>
+      <span style="font-size:11.5px;color:#6f685c;letter-spacing:.1em;">Shot Bar &middot; 渋谷エリア &middot; 1店舗</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:18px;">
+      <!-- left store card -->
+      <div style="background:linear-gradient(150deg,#221f18,#1a1814);border:1px solid rgba(200,169,106,.18);border-radius:14px;padding:26px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-family:'Shippori Mincho B1',serif;font-size:20px;color:#f4efe5;">SHOT BAR（渋谷）</div>
+            <div style="font-size:12px;color:#8c8576;margin-top:4px;">ショットバー業態 &middot; 営業中</div>
+          </div>
+          <div style="padding:6px 12px;border:1px solid rgba(127,174,138,.35);border-radius:999px;font-size:11px;color:#9bbfa6;">稼働中</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px;">
+          <div><div style="font-size:10.5px;letter-spacing:.1em;color:#8c8576;text-transform:uppercase;">月商</div><div style="margin-top:8px;font-weight:300;font-size:28px;color:#f4efe5;"><span style="font-size:14px;color:#c8a96a;">¥</span>3.0<span style="font-size:14px;color:#c8a96a;">M</span></div></div>
+          <div><div style="font-size:10.5px;letter-spacing:.1em;color:#8c8576;text-transform:uppercase;">客単価</div><div style="margin-top:8px;font-weight:300;font-size:28px;color:#f4efe5;"><span style="font-size:14px;color:#c8a96a;">¥</span>5,000</div></div>
+          <div><div style="font-size:10.5px;letter-spacing:.1em;color:#8c8576;text-transform:uppercase;">月間客数</div><div style="margin-top:8px;font-weight:300;font-size:28px;color:#f4efe5;">600<span style="font-size:14px;color:#c8a96a;">人</span></div></div>
+        </div>
+        <div style="margin-top:24px;padding-top:18px;border-top:1px solid rgba(200,169,106,.1);display:flex;justify-content:space-between;">
+          <div><div style="font-size:10.5px;color:#7d766a;letter-spacing:.1em;">営業利益(概算)</div><div style="font-size:20px;color:#e8dcc0;margin-top:4px;">¥450,000</div></div>
+          <div style="text-align:right;"><div style="font-size:10.5px;color:#7d766a;letter-spacing:.1em;">営業利益率</div><div style="font-size:20px;color:#e8dcc0;margin-top:4px;">15.0%</div></div>
+        </div>
+      </div>
+
+      <!-- right FL cost -->
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:26px;">
+        <div style="font-size:11px;letter-spacing:.14em;color:#8c8576;text-transform:uppercase;">FLコスト比率</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:14px;"><span style="font-weight:300;font-size:34px;color:#c8a96a;">58</span><span style="font-size:16px;color:#c8a96a;">%</span><span style="font-size:11.5px;color:#7d766a;margin-left:6px;">目標 ≤ 60%</span></div>
+        <div style="margin-top:22px;display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:12.5px;"><span style="color:#e8dcc0;">F：原価（食材・酒）</span><span style="color:#cfc8bb;">30%</span></div>
+            <div style="height:9px;border-radius:999px;background:#2a261d;overflow:hidden;"><div style="height:100%;width:30%;border-radius:999px;background:linear-gradient(90deg,#b3934f,#d8bd84);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:12.5px;"><span style="color:#e8dcc0;">L：人件費</span><span style="color:#cfc8bb;">28%</span></div>
+            <div style="height:9px;border-radius:999px;background:#2a261d;overflow:hidden;"><div style="height:100%;width:28%;border-radius:999px;background:linear-gradient(90deg,#5f6f78,#8aa0aa);"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:22px;font-size:11px;color:#6f685c;line-height:1.7;">FL比率はバー業態として良好水準。客数×客単価の伸長と原価管理の継続が利益率改善の鍵。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OPS ============ -->
+  <section id="ops" data-screen-label="経営オペレーション" style="padding:48px 40px 0;">
+    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px;border-bottom:1px solid rgba(200,169,106,.14);padding-bottom:14px;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#c8a96a;">04</span>
+      <h2 style="font-family:'Shippori Mincho B1',serif;font-weight:600;font-size:24px;color:#f4efe5;">経営オペレーション</h2>
+      <span style="font-size:11.5px;color:#6f685c;letter-spacing:.1em;">議事録・プロジェクト管理</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+      <!-- minutes -->
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+          <div style="font-family:'Shippori Mincho B1',serif;font-size:16px;color:#e8dcc0;">経営会議・議事録</div>
+          <span style="font-size:11px;color:#c8a96a;cursor:pointer;">＋ 新規 →</span>
+        </div>
+        <sc-for list="{{ minutes }}" as="m" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(200,169,106,.07);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#8c7a52;min-width:54px;">{{ m.date }}</span>
+            <span style="flex:1;font-size:13px;color:#ece7dd;">{{ m.title }}</span>
+            <span style="font-size:10.5px;padding:3px 9px;border-radius:999px;border:1px solid rgba(200,169,106,.2);color:#a99e89;">{{ m.tag }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- tasks -->
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="font-family:'Shippori Mincho B1',serif;font-size:16px;color:#e8dcc0;">タスク / プロジェクト</div>
+            <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border:1px solid rgba(127,174,138,.3);border-radius:999px;font-size:9.5px;color:#9bbfa6;letter-spacing:.04em;"><span style="width:5px;height:5px;border-radius:50%;background:#7fae8a;"></span>Sheets連携</span>
+          </div>
+          <a href="#" style="font-size:11px;color:#c8a96a;cursor:pointer;text-decoration:none;">ボード →</a>
+        </div>
+        <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(200,169,106,.07);">
+            <span style="width:8px;height:8px;border-radius:50%;background:{{ t.color }};flex-shrink:0;"></span>
+            <span style="flex:1;font-size:13px;color:#ece7dd;">{{ t.title }}</span>
+            <span style="font-size:11px;color:#9a9387;">{{ t.owner }}</span>
+            <span style="font-size:10.5px;padding:3px 9px;border-radius:999px;background:{{ t.statusBg }};color:{{ t.statusFg }};">{{ t.status }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- expansion / future business -->
+    <div style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+      <a href="https://www.dropbox.com/home/Freedom" target="_blank" style="text-decoration:none;background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:22px;display:block;" style-hover="border:1px solid rgba(200,169,106,.4);background:#211e17;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:11px;letter-spacing:.12em;color:#8c8576;text-transform:uppercase;">資料庫</div>
+          <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border:1px solid rgba(126,160,210,.32);border-radius:999px;font-size:9.5px;color:#9bb4dd;letter-spacing:.04em;"><span style="width:5px;height:5px;border-radius:50%;background:#6f9be0;"></span>Dropbox連携</span>
+        </div>
+        <div style="font-family:'Shippori Mincho B1',serif;font-size:15px;color:#e8dcc0;margin-top:8px;">契約書・許認可・図面</div>
+        <div style="font-size:11.5px;color:#7d766a;margin-top:8px;line-height:1.7;">物件契約・住宅宿泊事業届出・消防関連書類をDropboxに集約。クリックで共有フォルダへ。</div>
+      </a>
+      <div style="background:#1b1914;border:1px solid rgba(200,169,106,.16);border-radius:14px;padding:22px;"><div style="font-size:11px;letter-spacing:.12em;color:#8c8576;text-transform:uppercase;">労務・シフト</div><div style="font-family:'Shippori Mincho B1',serif;font-size:15px;color:#e8dcc0;margin-top:8px;">スタッフ・清掃管理</div><div style="font-size:11.5px;color:#7d766a;margin-top:8px;line-height:1.7;">清掃業者・BARスタッフのシフトと連絡網。</div></div>
+      <div style="border:1px dashed rgba(200,169,106,.3);border-radius:14px;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;background:rgba(200,169,106,.02);">
+        <div style="font-size:24px;color:#c8a96a;line-height:1;">＋</div>
+        <div style="font-family:'Shippori Mincho B1',serif;font-size:15px;color:#c8a96a;margin-top:10px;">新規事業を追加</div>
+        <div style="font-size:11.5px;color:#7d766a;margin-top:6px;line-height:1.7;">ホテル・不動産投資・新業態など。同じ構造で拡張可能。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPANY FOOTER ============ -->
+  <footer style="margin:56px 40px 0;padding:34px 40px;background:#16140f;border:1px solid rgba(200,169,106,.14);border-radius:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;">
+    <div>
+      <img src="assets/freedom-logo-light.png" alt="FREEDOM GROUP" style="height:30px;width:auto;display:block;opacity:.92;margin-bottom:18px;"/>
+      <div style="display:flex;gap:40px;flex-wrap:wrap;">
+        <div><div style="font-size:10px;letter-spacing:.16em;color:#7d766a;text-transform:uppercase;">商号</div><div style="font-size:13px;color:#cfc8bb;margin-top:5px;">合同会社Freedom</div></div>
+        <div><div style="font-size:10px;letter-spacing:.16em;color:#7d766a;text-transform:uppercase;">設立</div><div style="font-size:13px;color:#cfc8bb;margin-top:5px;">2025年4月</div></div>
+        <div><div style="font-size:10px;letter-spacing:.16em;color:#7d766a;text-transform:uppercase;">代表者</div><div style="font-size:13px;color:#cfc8bb;margin-top:5px;">中杉 一輝</div></div>
+        <div><div style="font-size:10px;letter-spacing:.16em;color:#7d766a;text-transform:uppercase;">所在地</div><div style="font-size:13px;color:#cfc8bb;margin-top:5px;">東京都千代田区神田岩本町15-1</div></div>
+      </div>
+    </div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.3em;color:#6f685c;text-transform:uppercase;">Built for the 1億 vision</div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:2400},&quot;reportMonth&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2026年6月度&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;レポート設定&quot;},&quot;targetNetProfitOku&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:5,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;億円&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;レポート設定&quot;},&quot;currentAnnualNetMan&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:2500,&quot;min&quot;:0,&quot;max&quot;:10000,&quot;step&quot;:100,&quot;unit&quot;:&quot;万円&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;レポート設定&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const reportMonth = this.props.reportMonth ?? "2026年6月度";
+    const targetOku = this.props.targetNetProfitOku ?? 1;        // 億円
+    const currentAnnualNet = this.props.currentAnnualNetMan ?? 2500; // 万円 (年換算純利益)
+    const targetMan = targetOku * 10000;                          // 万円
+    const progressPct = Math.round((currentAnnualNet / targetMan) * 100);
+    const gapMan = Math.max(targetMan - currentAnnualNet, 0);
+
+    const fmtOku = (man) => {
+      const oku = man / 10000;
+      return (Number.isInteger(oku) ? oku : oku.toFixed(2)) + "億円";
+    };
+    const fmtMan = (man) => "約" + (man / 10000).toFixed(2).replace(/\.?0+$/, "") + "億円";
+
+    const properties = [
+      { name: "渋谷",     type: "賃貸",       rooms: "3室", occ: "90%", occLabel: "90%", adr: "¥30,000", rev: "¥2,430,000" },
+      { name: "北新宿",   type: "所有・戸建", rooms: "1室", occ: "90%", occLabel: "90%", adr: "¥25,000", rev: "¥675,000" },
+      { name: "元浅草",   type: "賃貸",       rooms: "3室", occ: "90%", occLabel: "90%", adr: "¥15,000", rev: "¥1,215,000" },
+      { name: "青砥",     type: "賃貸・戸建", rooms: "1室", occ: "80%", occLabel: "80%", adr: "¥15,000", rev: "¥360,000" },
+      { name: "八広",     type: "賃貸・戸建", rooms: "1室", occ: "80%", occLabel: "80%", adr: "¥15,000", rev: "¥360,000" },
+      { name: "柴又",     type: "賃貸・戸建", rooms: "1室", occ: "90%", occLabel: "90%", adr: "¥10,000", rev: "¥270,000" },
+      { name: "四ツ木",   type: "賃貸・戸建", rooms: "1室", occ: "85%", occLabel: "85%", adr: "¥20,000", rev: "¥510,000" },
+      { name: "歌舞伎町", type: "賃貸・区分", rooms: "1室", occ: "90%", occLabel: "90%", adr: "¥20,000", rev: "¥540,000" },
+      { name: "恵比寿",   type: "賃貸・区分", rooms: "1室", occ: "90%", occLabel: "90%", adr: "¥20,000", rev: "¥540,000" },
+    ];
+
+    const minutes = [
+      { date: "06.24", title: "Q2業績レビューと下期出店方針", tag: "経営会議" },
+      { date: "06.10", title: "新規民泊2物件の投資判断（青砥エリア）", tag: "投資" },
+      { date: "05.27", title: "BAR人件費・シフト最適化の検討", tag: "労務" },
+      { date: "05.13", title: "Googleスプレッドシート月次連携の運用設計", tag: "DX" },
+    ];
+
+    const STATUS = {
+      doing: { status: "進行中", statusBg: "rgba(200,169,106,.16)", statusFg: "#d8bd84", color: "#d8bd84" },
+      review:{ status: "確認中", statusBg: "rgba(138,160,170,.16)", statusFg: "#9bb0bb", color: "#8aa0aa" },
+      done:  { status: "完了",   statusBg: "rgba(127,174,138,.16)", statusFg: "#9bbfa6", color: "#7fae8a" },
+    };
+    const tasks = [
+      { title: "民泊 10物件→20物件 拡大計画の策定", owner: "中杉", ...STATUS.doing },
+      { title: "BAR 2号店の物件選定（渋谷／新宿）", owner: "中杉", ...STATUS.review },
+      { title: "住宅宿泊事業 届出更新（3物件）", owner: "運営", ...STATUS.doing },
+      { title: "月次P/Lダッシュボード自動化", owner: "管理", ...STATUS.done },
+    ];
+
+    return {
+      reportMonth,
+      progressPct,
+      progressBarWidth: Math.min(progressPct, 100) + "%",
+      targetLabel: fmtOku(targetMan),
+      currentLabel: fmtMan(currentAnnualNet),
+      gapLabel: fmtMan(gapMan),
+      properties, minutes, tasks,
+    };
+  }
+}
+</script>
+</body>
+</html>
